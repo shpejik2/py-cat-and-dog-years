@@ -3,7 +3,7 @@ from app.main import get_human_age
 
 
 @pytest.mark.parametrize(
-    "dog_age,cat_age,expected_human_age",
+    "cat_age,dog_age,expected_human_age",
     [
         pytest.param(
             0,
@@ -26,7 +26,7 @@ from app.main import get_human_age
         (
             24,
             24,
-            [1, 1]
+            [2, 2]
         ),
         (
             27,
@@ -46,8 +46,35 @@ from app.main import get_human_age
     ]
 )
 def test_get_human_age(
-        dog_age: int,
         cat_age: int,
+        dog_age: int,
         expected_human_age: list
 ) -> None:
-    assert get_human_age(dog_age, cat_age) == expected_human_age
+    assert get_human_age(cat_age, dog_age) == expected_human_age
+
+
+@pytest.mark.parametrize(
+    "cat_age,dog_age",
+    [
+        pytest.param(
+            -1,
+            -1,
+            id="should raise exception if negative value"
+        ),
+        pytest.param(
+            " ",
+            " ",
+            id="should raise exception if string"
+        ),
+        pytest.param(
+            1000,
+            10000,
+            id="should raise exception if large number"
+        )
+    ]
+)
+def test_get_human_age_exceptions(cat_age: int
+                                  , dog_age: int
+                                  ) -> None:
+    with pytest.raises(Exception):
+        get_human_age(cat_age, dog_age)
