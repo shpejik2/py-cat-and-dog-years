@@ -62,19 +62,33 @@ def test_get_human_age(
             id="should raise exception if negative value"
         ),
         pytest.param(
-            " ",
-            " ",
-            id="should raise exception if string"
-        ),
-        pytest.param(
             1000,
             10000,
             id="should raise exception if large number"
         )
     ]
 )
-def test_get_human_age_exceptions(cat_age: int
-                                  , dog_age: int
-                                  ) -> None:
-    with pytest.raises(Exception):
+def test_get_human_age_raising_value_error(
+        cat_age: int,
+        dog_age: int
+) -> None:
+    with pytest.raises(ValueError):
+        get_human_age(cat_age, dog_age)
+
+
+@pytest.mark.parametrize(
+    "cat_age,dog_age",
+    [
+        pytest.param(
+            "",
+            "",
+            id="should raise exception if non int value"
+        )
+    ]
+)
+def test_get_human_age_raising_type_error(
+        cat_age: int,
+        dog_age: int
+) -> None:
+    with pytest.raises(TypeError):
         get_human_age(cat_age, dog_age)
