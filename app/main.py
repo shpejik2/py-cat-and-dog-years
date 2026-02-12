@@ -6,7 +6,6 @@ def get_human_age(cat_age: int, dog_age: int) -> list:
     if cat_age > 100 or dog_age > 100:
         raise ValueError("Invalid input")
 
-
     def convert_cat(age: int) -> int:
         if age < 15:
             return 0
